@@ -1,0 +1,4 @@
+for faceswap: https://github.com/deepfakes/faceswap/blob/master/INSTALL.md
+pip install dlib
+pip install face_recognition
+pip install shutil

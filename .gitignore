@@ -30,3 +30,15 @@
 *.ini
 *.pyc
 __pycache__/
+faceswap commandline workflow.txt
+favicon114.d526f38b09c5.png
+favicon144.e7e21ca263ca.png
+favicon32.7f3da72dcea1.png
+favicon57.de33179910ae.png
+favicon72.cc65d1d762a0.png
+plugins/train/model/dfaker_defaults.py
+plugins/train/model/iae_defaults.py
+plugins/train/model/lightweight_defaults.py
+workflow.txt
+scripts/extract(1).py
+SNL_Special.txt
