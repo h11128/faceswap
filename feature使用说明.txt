@@ -1,0 +1,19 @@
+
+
+python feature_extraction.py
+video_path 为视频路径，target_path为目标文件夹，默认为 'clips/'， t1, t2 为开始时间和结束时间
+要剪辑使用test_cut(video_path, target_path, t1, t2)
+如：
+video_path = 'src/videos/Hillary_Clinton/d.webm'
+test_cut(video_path, target_path = 'clips/' , 0, 20)
+
+
+使用openface提取所有：extract(openface_path, file_path)
+
+读csv文件得到所需190特征get_feature(openface_path, file_path, csvpath = '', overwrite = False)
+
+读csv文件得到190特征，使之二维化，
+get_tSNE_of_clips(full_clip_path = '', number_of_clips = -1, video_path =  '')
+填入剪辑文件夹地址，所需剪辑数量
+或者填入原视频地址，所需剪辑数量即可
+如y2 = get_tSNE_of_clips("",50, video_path = 'src/videos/Donald_Trump/002.mp4')
