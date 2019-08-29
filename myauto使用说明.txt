@@ -1,0 +1,46 @@
+must do before executing:
+	cd HDD/ywj/faceswap/
+	source activate faceswap or conda activate faceswap
+	export PYTHONPATH=/usr/local/lib/python3.6/dist-packages:$PYTHONPATH
+
+python myauto.py
+
+根据需求改动myauto.py
+a = Auto()
+
+素材视频应该存在a.src_video_path, 每次任何操作之前要用get_path(self, name = '', video_file_name = '', name2 = '', video_path = '')确认视频源的人物名，换脸目标的人物名和视频的名字
+比如 a.get_path('Hillary_Clinton', 'c.mp4', 'Donald_Trump')
+这说明在 src/videos/Hillary_Clinton/c.mp4 存有源视频
+或者 a.get_path(name2 = 'Donald_Trump', video_path = ' src/videos/Hillary_Clinton/c.mp4') 
+根据实际会用到的参数输入参数即可
+
+
+提取视频文件夹所有视频作为素材：
+a.get_path(name = name1)
+事先在src/video/name1/ 下存好所需视频，如未改名需a.rename_videos()
+如果要识别使提取能去除不是所需人物的脸， 需要在 'faces/known_faces/' 存一张所需人物脸的图片并且命名要一致
+a.extract_videos_to_source_images(know_faces_path = 'Default', want_recognition = True)
+如果不需要
+a.extract_videos_to_source_images()
+图片会存在 src/name1/ 里
+
+提取单个视频 src/videos/name1/a.mp4
+a.get_path(video_path = src/videos/name1/a.mp4)
+a.extract_videos_to_source_images(video_path = src/videos/name1/a.mp4)
+图片存在 a.extract_faces_path
+
+给定两个文件夹的图片于 src/name1/ 和 src/name2/ 训练两张脸转化的模型：
+a.get_path(name = name1, video_file_name = '', name2 = name2)
+a.train()
+（参数默认为：model_name = 'villain', save_iteration = 1000, batch_size = 32, iterations = 20000， 训练需要至少一块单独GPU的量）
+
+在已知模型地址 model/xxx/的情况下，对某视频src/name1/videoname.mp4 进行换脸，输出换脸视频：
+a.get_path(name = name1, video_file_name = videoname.mp4, name2 = name2) 或者 a.get_path(name2 = name2，video_path = src/name1/videoname.mp4) 
+a.convert(a.video_file_name, a.target_name, skip_extracting = True, know_faces_path = 'Default', model_path = 'model/xxx/')
+
+缺乏模型的情况下直接转化,会在过程中进行训练
+a.get_path(name = name1, video_file_name = videoname.mp4, name2 = name2) 或者 a.get_path(name2 = name2，video_path = src/name1/videoname.mp4) 
+a.convert(a.video_file_name, a.target_name, skip_extracting = True, know_faces_path = 'Default', model_path = '')
+
+无素材，两个视频A video1 和B video2， A的脸换成B的脸, 
+a.swap_from_two_video(self, video1, video2, know_faces_path = 'False')
